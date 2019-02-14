@@ -44,7 +44,7 @@ class EditEntryController: UITableViewController {
         return pickerManager
     }()
     
-    let coreDataStack = CoreDataStack()
+    weak var managedObjectContext: NSManagedObjectContext?
     
     // MARK: - View Setup
     override func viewDidLoad() {
@@ -54,47 +54,12 @@ class EditEntryController: UITableViewController {
         if let existingEntry = entry {
             setup(with: existingEntry)
         }
-        // Just testing
-//        let entryFetch: NSFetchRequest<Entry> = Entry.fetchRequest()
-//
-//        do {
-//            let result = try coreDataStack.managedObjectContext.fetch(entryFetch)
-//
-//            for r in result {
-//                print(r.entryDescription)
-//            }
-//        } catch {
-//            print("error")
-//        }
-        
     }
     
     func setup(with entry: Entry) {
         // Use an existing entry to configure the view.
     }
-    
-    // MARK: Saving for new entries
-    func saveEntry() {
-        
-        // The only requirement to save an entry is to have a valid description. Everything else will have a default value or be nil.
-        guard let entryDescription = entryDescriptionTextView.text, entryDescription.count > 0 else {
-            showAlert(for: .emptyDescription)
-            return
-        }
-        
-        let moodValue = Int(moodLevelSlider.value)
-        
-        guard let newEntry = Entry.newEntry(withDescription: entryDescription, mood: moodValue , image: entryImage, mapItem: entryLocation, inContext: coreDataStack.managedObjectContext) else {
-            let alert = UIAlertController.alert(with: "Failed to create a new entry model.")
-            return
-        }
-        
-        do {
-            try coreDataStack.managedObjectContext.save()
-        } catch {
-            print("Something went wrong when saving. \(error.localizedDescription)")
-        }
-    }
+
     
     // MARK: Image Selection/Updating
     @IBAction func entryImageViewTapped(_ sender: UITapGestureRecognizer) {
@@ -123,21 +88,38 @@ class EditEntryController: UITableViewController {
         present(editImageActionSheet, animated: true, completion: nil)
     }
     
-    /// MARK: Location Selection/Updating
-    @IBAction func locationButtonTapped(_ sender: UIButton) {
-        
-        
-    }
-    
+    // MARK: Saving Entry
     @IBAction func saveBarButtonTapped(_ sender: Any) {
-        saveEntry()
+        do {
+            try saveEntry()
+        } catch {
+            print(error)
+        }
     }
     
-    // MARK: Error Alert
-    func showAlert(for error: EntryEditError) {
-        let alert = UIAlertController.alert(for: error, action: nil)
-        present(alert, animated: true, completion: nil)
+    func saveEntry() throws {
+        
+        guard let moc = managedObjectContext else { throw DiaryError.missingContextDuringSave }
+        
+        // The only requirement to save an entry is to have a valid description. Everything else will have a default value or be nil.
+        guard let entryDescription = entryDescriptionTextView.text, entryDescription.count > 0 else {
+            showAlert(for: .emptyDescription)
+            return
+        }
+        
+        let moodValue = Int(moodLevelSlider.value)
+        
+        guard let newEntry = Entry.newEntry(withDescription: entryDescription, mood: moodValue , image: entryImage, mapItem: entryLocation, inContext: moc) else {
+            let alert = UIAlertController.alert(with: "Failed to create a new entry model.")
+            present(alert, animated: true, completion: nil) // FIXME: Add error and present using error type instead
+            return
+        }
+        
+        try moc.save()
+        
+        dismiss()
     }
+    
     
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -145,7 +127,21 @@ class EditEntryController: UITableViewController {
         if segue.identifier == "AddLocation", let navigationController = segue.destination as? UINavigationController, let locationSearchController = navigationController.topViewController as? LocationSearchController {
             
             locationSearchController.delegate = self
-        }        
+        }
+    }
+    @IBAction func cancelEditTapped(_ sender: Any) {
+        dismiss()
+    }
+    
+    // Dismisses the nav controller that presented this edit view.
+    func dismiss() {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: Error Alert
+    func showAlert(for error: DiaryError) {
+        let alert = UIAlertController.alert(for: error, action: nil)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -156,6 +152,7 @@ extension EditEntryController: ImagePickerManagerDelegate {
     }
 }
 
+// Allow the edit entry controller to listen for a call from the Location search controller with a location selected by the user.
 extension EditEntryController: LocationSearchControllerDelegate {
     func locationSearchController(_ controller: LocationSearchController, userSelectedMapItem mapItem: MKMapItem) {
         entryLocation = mapItem
@@ -163,6 +160,3 @@ extension EditEntryController: LocationSearchControllerDelegate {
     
 }
 
-enum EntryEditError: Error {
-    case emptyDescription
-}

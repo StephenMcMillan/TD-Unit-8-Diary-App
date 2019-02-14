@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgT-n9-ef7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.59" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgT-n9-ef7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.45"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,13 +12,13 @@
         <!--Diary-->
         <scene sceneID="Qqq-nh-6wX">
             <objects>
-                <tableViewController id="fdt-7i-m4X" sceneMemberID="viewController">
+                <tableViewController id="fdt-7i-m4X" customClass="EntryListController" customModule="Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="160" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="pRe-qa-Ptr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EntryCell" id="Uos-vo-iAa">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EntryCell" id="Uos-vo-iAa" customClass="EntryCell" customModule="Diary" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="160"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uos-vo-iAa" id="8Va-vL-fjk">
@@ -76,6 +76,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="dateLabel" destination="rwA-eF-s0J" id="1U3-u3-0nO"/>
+                                    <outlet property="descriptionLabel" destination="TwX-Z0-kqh" id="kIc-HD-Syv"/>
+                                    <outlet property="locationLabel" destination="ojh-bl-7jE" id="jnE-vM-euN"/>
+                                    <outlet property="thumbnailImageView" destination="3ex-Jx-uxk" id="aqr-15-iUA"/>
                                     <segue destination="a7q-SG-n1V" kind="show" identifier="ViewEntry" id="duj-lj-Rom"/>
                                 </connections>
                             </tableViewCell>
@@ -88,7 +92,7 @@
                     <navigationItem key="navigationItem" title="Diary" id="9Kd-tF-02S">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="y82-xT-rkI">
                             <connections>
-                                <segue destination="0Og-hq-tgE" kind="show" identifier="AddNewEntry" id="X7y-qn-Mpo"/>
+                                <segue destination="opv-vp-atM" kind="presentation" identifier="AddNewEntry" id="j4p-aS-2v0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -160,21 +164,21 @@
                     <navigationItem key="navigationItem" title="Tuesday 12th February" largeTitleDisplayMode="never" id="0bU-Ep-GFv">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Zy6-aF-yoi">
                             <connections>
-                                <segue destination="0Og-hq-tgE" kind="show" identifier="EditExistingEntry" id="tO4-Bs-LjA"/>
+                                <segue destination="opv-vp-atM" kind="presentation" identifier="EditExistingEntry" id="gS3-fr-ek7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E8R-Ip-i6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1832.8" y="632.83358320839591"/>
+            <point key="canvasLocation" x="1049" y="916"/>
         </scene>
         <!--Add an Entry-->
         <scene sceneID="BzY-h9-yi2">
             <objects>
                 <tableViewController title="Add an Entry" id="0Og-hq-tgE" customClass="EditEntryController" customModule="Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="cmf-QM-QFy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="569"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="CQz-dC-ZIa">
@@ -184,11 +188,11 @@
                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="tgl-e9-IoX">
                                     <rect key="frame" x="163.5" y="96" width="48" height="48"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a92-z8-0aL">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a92-z8-0aL">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                                 </imageView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <gestureRecognizers/>
                             <constraints>
                                 <constraint firstItem="tgl-e9-IoX" firstAttribute="centerX" secondItem="CQz-dC-ZIa" secondAttribute="centerX" id="3Fi-0C-f7Q"/>
@@ -299,7 +303,6 @@
                                                         <color key="titleColor" red="0.1764705882" green="0.59607843140000005" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="locationButtonTapped:" destination="0Og-hq-tgE" eventType="touchUpInside" id="EBd-cA-DE5"/>
                                                         <segue destination="0SK-Z6-KdG" kind="presentation" identifier="AddLocation" id="xHz-EV-wlG"/>
                                                     </connections>
                                                 </button>
@@ -321,7 +324,12 @@
                             <outlet property="delegate" destination="0Og-hq-tgE" id="GC3-y0-hze"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Wednesday 13th February" prompt="Add an Entry" largeTitleDisplayMode="never" id="gpm-4q-Xci">
+                    <navigationItem key="navigationItem" title="Wednesday 13th February" largeTitleDisplayMode="never" id="gpm-4q-Xci">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Sgq-X0-hYe">
+                            <connections>
+                                <action selector="cancelEditTapped:" destination="0Og-hq-tgE" id="pNw-qp-3U4"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Xi7-2s-Dke">
                             <connections>
                                 <action selector="saveBarButtonTapped:" destination="0Og-hq-tgE" id="tJF-l9-w9f"/>
@@ -342,7 +350,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2613.5999999999999" y="133.5832083958021"/>
+            <point key="canvasLocation" x="3552.8000000000002" y="133.5832083958021"/>
         </scene>
         <!--Add a Location-->
         <scene sceneID="8u8-dS-c9G">
@@ -401,7 +409,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3NX-6c-YAL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4025" y="134"/>
+            <point key="canvasLocation" x="4964" y="133.5832083958021"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4eL-rA-nKw">
@@ -444,7 +452,27 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ot8-3h-Vfp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3326" y="134"/>
+            <point key="canvasLocation" x="4264.8000000000002" y="133.5832083958021"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ttl-os-dty">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="opv-vp-atM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="fCr-1B-9CP">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.1764705882" green="0.59607843140000005" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0Og-hq-tgE" kind="relationship" relationship="rootViewController" id="fgg-kx-X2B"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J87-ow-YEB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1873" y="134"/>
         </scene>
     </scenes>
     <resources>
@@ -453,6 +481,6 @@
         <image name="sampleimage" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="X7y-qn-Mpo"/>
+        <segue reference="gS3-fr-ek7"/>
     </inferredMetricsTieBreakers>
 </document>
