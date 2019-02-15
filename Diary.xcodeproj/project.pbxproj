@@ -22,6 +22,7 @@
 		699A127122162056007063AE /* EntryListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699A127022162056007063AE /* EntryListController.swift */; };
 		699A127322162382007063AE /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699A127222162382007063AE /* EntryCell.swift */; };
 		699A1275221628D7007063AE /* DiaryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699A1274221628D7007063AE /* DiaryError.swift */; };
+		69F0BD562216E2E500D76C97 /* EntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BD552216E2E500D76C97 /* EntryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		699A127022162056007063AE /* EntryListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListController.swift; sourceTree = "<group>"; };
 		699A127222162382007063AE /* EntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
 		699A1274221628D7007063AE /* DiaryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryError.swift; sourceTree = "<group>"; };
+		69F0BD552216E2E500D76C97 /* EntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				699A125422159775007063AE /* Entry.swift */,
 				699A12622215CDDB007063AE /* Location.swift */,
 				699A124C221595AC007063AE /* Diary.xcdatamodeld */,
+				69F0BD552216E2E500D76C97 /* EntryViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				699A126F2215FEB3007063AE /* DiaryCoreDataStack.swift in Sources */,
 				699A127322162382007063AE /* EntryCell.swift in Sources */,
 				699A12602215C479007063AE /* LocationSearchController.swift in Sources */,
+				69F0BD562216E2E500D76C97 /* EntryViewModel.swift in Sources */,
 				699A125622159775007063AE /* Entry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

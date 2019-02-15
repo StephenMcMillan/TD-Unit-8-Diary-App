@@ -30,11 +30,23 @@ extension Entry {
     @NSManaged public var mood: Int16
     @NSManaged public var location: Location?
     
+    // Need to expose creationMonth to objc runtime 
+    @objc var creationMonth: String {
+        get {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMMM yy"
+            let result = dateFormatter.string(from: creationDate as Date)
+            return result
+        }
+    }
+    
     static func newEntry(withDescription description: String, mood: Int, image: UIImage?, mapItem: MKMapItem?, inContext context: NSManagedObjectContext) -> Entry? {
         
         guard let newEntry = NSEntityDescription.insertNewObject(forEntityName: "Entry", into: context) as? Entry else { return nil }
         
         newEntry.entryDescription = description
+        
+        // Get todays date.
         newEntry.creationDate = Date() as NSDate
         
         // Convert the data to its data representation so it can be stored by Core Data

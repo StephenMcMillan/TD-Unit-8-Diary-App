@@ -18,4 +18,14 @@ class EntryCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
+    
+    func configure(with viewModel: EntryViewModel) {
+        thumbnailImageView.image = viewModel.thumbnailImage
+        thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.width/2 // Make the thumnail a circular view.
+        
+        dateLabel.text = viewModel.creationDate
+        descriptionLabel.text = viewModel.description
+        locationLabel.text = viewModel.locationName
+        
+    }
 }

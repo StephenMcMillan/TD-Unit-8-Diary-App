@@ -18,7 +18,7 @@ class EntryListController: UITableViewController {
         let dateSort = NSSortDescriptor(key: "creationDate", ascending: false)
         request.sortDescriptors = [dateSort]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.coreDataStack.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.coreDataStack.managedObjectContext, sectionNameKeyPath: "creationMonth", cacheName: nil)
         fetchedResultsController.delegate = self
        return fetchedResultsController
     }()
@@ -40,11 +40,15 @@ class EntryListController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return fetchedResultsController.sections?.count ?? 0
     }
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        // Gets the section name from the fetched results controller. These are categorised by month and year
+        guard let section = fetchedResultsController.sections?[section] else { return nil }
+        return section.name
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         guard let sections = fetchedResultsController.sections else { return 0 }
-        
         return sections[section].numberOfObjects
     }
     
@@ -52,15 +56,10 @@ class EntryListController: UITableViewController {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: EntryCell.reuseIdentifier, for: indexPath) as! EntryCell
         
+        // Fetch entry from fetchedResultsController, create a view-model and use that view-model to configure the cell.
         let entry = fetchedResultsController.object(at: indexPath)
-        
-        cell.dateLabel.text = "\(entry.creationDate)"
-        cell.descriptionLabel.text = entry.entryDescription
-        
-        if let entryLocation = entry.location {
-            cell.locationLabel.text = entryLocation.name
-        }
-        
+        let viewModel = EntryViewModel(entry: entry)
+        cell.configure(with: viewModel)
         return cell
         
     }
@@ -93,6 +92,20 @@ extension EntryListController: NSFetchedResultsControllerDelegate {
         tableView.beginUpdates()
     }
     
+    // Handle the insertion/deletion of sections.
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        switch type {
+        case .insert:
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .delete:
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+        default:
+            break
+        }
+    }
+    
+    // Handle the insertion, deletion and updating of rows.
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
 
         switch type {

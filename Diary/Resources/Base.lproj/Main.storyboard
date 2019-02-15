@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.59" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgT-n9-ef7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgT-n9-ef7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.45"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,46 +13,47 @@
         <scene sceneID="Qqq-nh-6wX">
             <objects>
                 <tableViewController id="fdt-7i-m4X" customClass="EntryListController" customModule="Diary" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="160" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="pRe-qa-Ptr">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="150" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="pRe-qa-Ptr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EntryCell" id="Uos-vo-iAa" customClass="EntryCell" customModule="Diary" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="160"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EntryCell" rowHeight="150" id="Uos-vo-iAa" customClass="EntryCell" customModule="Diary" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uos-vo-iAa" id="8Va-vL-fjk">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="159.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sampleimage" translatesAutoresizingMaskIntoConstraints="NO" id="3ex-Jx-uxk">
-                                            <rect key="frame" x="16" y="19" width="60" height="60"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3ex-Jx-uxk">
+                                            <rect key="frame" x="16" y="16" width="60" height="60"/>
+                                            <color key="backgroundColor" red="0.1764705882" green="0.59607843140000005" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="Gkg-hm-FZw"/>
                                                 <constraint firstAttribute="height" constant="60" id="ez6-1X-ilE"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuesday 12th February" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwA-eF-s0J">
-                                            <rect key="frame" x="96" y="19" width="204" height="24"/>
+                                            <rect key="frame" x="96" y="16" width="204" height="24"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TwX-Z0-kqh">
-                                            <rect key="frame" x="96" y="49" width="263" height="57.5"/>
+                                            <rect key="frame" x="96" y="46" width="263" height="57.5"/>
                                             <string key="text">We took in the sights today whilst travelling on the railroad. The views were insane. I'm really excited to tackle the mountain tomorrow!</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vancouver, Canada" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojh-bl-7jE">
-                                            <rect key="frame" x="128" y="116.5" width="140" height="20"/>
+                                            <rect key="frame" x="128" y="113.5" width="140" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="cy5-gY-UxR">
-                                            <rect key="frame" x="96" y="114.5" width="24" height="24"/>
+                                            <rect key="frame" x="96" y="111.5" width="24" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="Z0D-e7-428"/>
                                                 <constraint firstAttribute="width" constant="24" id="epJ-gj-lAw"/>
@@ -62,17 +63,18 @@
                                     <constraints>
                                         <constraint firstItem="rwA-eF-s0J" firstAttribute="top" secondItem="3ex-Jx-uxk" secondAttribute="top" id="4hd-Y4-7ke"/>
                                         <constraint firstItem="TwX-Z0-kqh" firstAttribute="top" secondItem="rwA-eF-s0J" secondAttribute="bottom" constant="6" id="K8t-Mh-yrw"/>
-                                        <constraint firstItem="cy5-gY-UxR" firstAttribute="top" secondItem="TwX-Z0-kqh" secondAttribute="bottom" constant="8" id="N7z-II-Jpc"/>
+                                        <constraint firstItem="cy5-gY-UxR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="TwX-Z0-kqh" secondAttribute="bottom" constant="8" id="N7z-II-Jpc"/>
                                         <constraint firstItem="cy5-gY-UxR" firstAttribute="leading" secondItem="TwX-Z0-kqh" secondAttribute="leading" id="Wwm-A0-Jfm"/>
                                         <constraint firstItem="rwA-eF-s0J" firstAttribute="leading" secondItem="3ex-Jx-uxk" secondAttribute="trailing" constant="20" id="b71-vT-ZSk"/>
                                         <constraint firstItem="3ex-Jx-uxk" firstAttribute="leading" secondItem="8Va-vL-fjk" secondAttribute="leadingMargin" id="boe-1d-Wca"/>
                                         <constraint firstItem="ojh-bl-7jE" firstAttribute="centerY" secondItem="cy5-gY-UxR" secondAttribute="centerY" id="cJJ-Me-zIF"/>
                                         <constraint firstAttribute="trailing" secondItem="TwX-Z0-kqh" secondAttribute="trailing" constant="16" id="daW-kY-Kyo"/>
                                         <constraint firstItem="TwX-Z0-kqh" firstAttribute="leading" secondItem="rwA-eF-s0J" secondAttribute="leading" id="gih-z1-qUu"/>
-                                        <constraint firstItem="3ex-Jx-uxk" firstAttribute="top" secondItem="8Va-vL-fjk" secondAttribute="topMargin" constant="8" id="mRm-1s-sue"/>
+                                        <constraint firstItem="3ex-Jx-uxk" firstAttribute="top" secondItem="8Va-vL-fjk" secondAttribute="top" constant="16" id="mRm-1s-sue"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ojh-bl-7jE" secondAttribute="trailing" constant="20" symbolic="YES" id="meL-dP-tdS"/>
                                         <constraint firstItem="ojh-bl-7jE" firstAttribute="leading" secondItem="cy5-gY-UxR" secondAttribute="trailing" constant="8" id="nEC-fG-lHE"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rwA-eF-s0J" secondAttribute="trailing" constant="20" symbolic="YES" id="pcf-Yd-Jih"/>
+                                        <constraint firstAttribute="bottom" secondItem="ojh-bl-7jE" secondAttribute="bottom" constant="16" id="yuo-PM-xmr"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -478,9 +480,8 @@
     <resources>
         <image name="addPhoto" width="48" height="48"/>
         <image name="location" width="96" height="96"/>
-        <image name="sampleimage" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gS3-fr-ek7"/>
+        <segue reference="j4p-aS-2v0"/>
     </inferredMetricsTieBreakers>
 </document>
