@@ -27,14 +27,14 @@ extension Entry {
     @NSManaged public var entryDescription: String
     @NSManaged public var creationDate: NSDate
     @NSManaged public var image: NSData?
-    @NSManaged public var mood: Int16
+    @NSManaged public var mood: Int32
     @NSManaged public var location: Location?
     
     // Need to expose creationMonth to objc runtime 
     @objc var creationMonth: String {
         get {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMM yy"
+            dateFormatter.dateFormat = "MMMM yyyy"
             let result = dateFormatter.string(from: creationDate as Date)
             return result
         }
@@ -45,6 +45,7 @@ extension Entry {
         guard let newEntry = NSEntityDescription.insertNewObject(forEntityName: "Entry", into: context) as? Entry else { return nil }
         
         newEntry.entryDescription = description
+        newEntry.mood = Int32(mood)
         
         // Get todays date.
         newEntry.creationDate = Date() as NSDate

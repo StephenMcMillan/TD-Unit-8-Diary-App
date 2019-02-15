@@ -31,7 +31,7 @@ struct EntryViewModel {
         
         return dateFormatter.string(for: entry.creationDate) ?? "Date Unknown"
     }
-    
+        
     // Creates a small image from the iamge data and returns a placeholder if one wasnt found.
     var thumbnailImage: UIImage? {
         // TODO: Scale this or something.
@@ -53,8 +53,12 @@ struct EntryViewModel {
         return entryImage
     }
     
-    var mood: String {
-        return "Fix this. what am i doing with the mood."
+    var mood: Int {
+        return Int(entry.mood)
+    }
+    
+    var moodString: String {
+        return "\(entry.mood)/10"
     }
     
     var locationName: String {

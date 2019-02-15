@@ -67,11 +67,12 @@ class EntryListController: UITableViewController {
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        guard let navigationController = segue.destination as? UINavigationController else { return }
+        
         
         switch segue.identifier {
         case "AddNewEntry":
             
+            guard let navigationController = segue.destination as? UINavigationController else { return }
             
             guard let addEntryView = navigationController.topViewController as? EditEntryController else {
                 return
@@ -80,7 +81,16 @@ class EntryListController: UITableViewController {
             addEntryView.managedObjectContext = coreDataStack.managedObjectContext
             
         case "ViewEntry":
-            print("Viewing entry")
+            
+            guard let entryDetailView = segue.destination as? EntryDetailController else {
+                return
+            }
+            
+            // Gets the entry from the fetched results controller for the index path that was tapped and passes it through to the detail view.
+            guard let selectedTableIndex = tableView.indexPathForSelectedRow else { return }
+            entryDetailView.managedObjectContext = coreDataStack.managedObjectContext
+            entryDetailView.entry = fetchedResultsController.object(at: selectedTableIndex)
+            
         default:
             break
         }

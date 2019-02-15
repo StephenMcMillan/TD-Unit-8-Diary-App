@@ -108,6 +108,7 @@ class EditEntryController: UITableViewController {
         }
         
         let moodValue = Int(moodLevelSlider.value)
+        print(moodValue)
         
         guard let newEntry = Entry.newEntry(withDescription: entryDescription, mood: moodValue , image: entryImage, mapItem: entryLocation, inContext: moc) else {
             let alert = UIAlertController.alert(with: "Failed to create a new entry model.")

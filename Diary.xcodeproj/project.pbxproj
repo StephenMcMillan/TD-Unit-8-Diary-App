@@ -23,6 +23,9 @@
 		699A127322162382007063AE /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699A127222162382007063AE /* EntryCell.swift */; };
 		699A1275221628D7007063AE /* DiaryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699A1274221628D7007063AE /* DiaryError.swift */; };
 		69F0BD562216E2E500D76C97 /* EntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BD552216E2E500D76C97 /* EntryViewModel.swift */; };
+		69F0BD58221701A000D76C97 /* EntryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BD57221701A000D76C97 /* EntryDetailController.swift */; };
+		69F0BD5A221706D100D76C97 /* MoodCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BD59221706D100D76C97 /* MoodCircleView.swift */; };
+		69F0BD5C221736AE00D76C97 /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BD5B221736AE00D76C97 /* LocationAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		699A127222162382007063AE /* EntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
 		699A1274221628D7007063AE /* DiaryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryError.swift; sourceTree = "<group>"; };
 		69F0BD552216E2E500D76C97 /* EntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewModel.swift; sourceTree = "<group>"; };
+		69F0BD57221701A000D76C97 /* EntryDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailController.swift; sourceTree = "<group>"; };
+		69F0BD59221706D100D76C97 /* MoodCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodCircleView.swift; sourceTree = "<group>"; };
+		69F0BD5B221736AE00D76C97 /* LocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				699A127222162382007063AE /* EntryCell.swift */,
+				69F0BD59221706D100D76C97 /* MoodCircleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -110,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				699A127022162056007063AE /* EntryListController.swift */,
+				69F0BD57221701A000D76C97 /* EntryDetailController.swift */,
 				699A1257221598CC007063AE /* EditEntryController.swift */,
 				699A125F2215C479007063AE /* LocationSearchController.swift */,
 			);
@@ -123,6 +131,7 @@
 				699A125B2215A700007063AE /* ImagePickerManager.swift */,
 				699A126E2215FEB3007063AE /* DiaryCoreDataStack.swift */,
 				699A1274221628D7007063AE /* DiaryError.swift */,
+				69F0BD5B221736AE00D76C97 /* LocationAnnotation.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -213,12 +222,15 @@
 				699A1275221628D7007063AE /* DiaryError.swift in Sources */,
 				699A12642215CDDB007063AE /* Location.swift in Sources */,
 				699A124E221595AC007063AE /* Diary.xcdatamodeld in Sources */,
+				69F0BD58221701A000D76C97 /* EntryDetailController.swift in Sources */,
 				699A125C2215A700007063AE /* ImagePickerManager.swift in Sources */,
+				69F0BD5C221736AE00D76C97 /* LocationAnnotation.swift in Sources */,
 				699A1258221598CC007063AE /* EditEntryController.swift in Sources */,
 				699A121A2214520A007063AE /* AppDelegate.swift in Sources */,
 				699A126F2215FEB3007063AE /* DiaryCoreDataStack.swift in Sources */,
 				699A127322162382007063AE /* EntryCell.swift in Sources */,
 				699A12602215C479007063AE /* LocationSearchController.swift in Sources */,
+				69F0BD5A221706D100D76C97 /* MoodCircleView.swift in Sources */,
 				69F0BD562216E2E500D76C97 /* EntryViewModel.swift in Sources */,
 				699A125622159775007063AE /* Entry.swift in Sources */,
 			);
