@@ -11,9 +11,9 @@ import MapKit
 import CoreData
 
 // Displays the details of a particular diary entry.
-class EntryDetailController: UIViewController {
+class EntryDetailController: UIViewController, ErrorAlertable {
     
-    var entry: Entry?
+    weak var entry: Entry?
     var managedObjectContext: NSManagedObjectContext?
     
     @IBOutlet weak var entryImageView: UIImageView!
@@ -23,11 +23,11 @@ class EntryDetailController: UIViewController {
     @IBOutlet weak var moodCircle: MoodCircleView!
     @IBOutlet weak var moodCircleLabel: UILabel!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Having this loading code in the viewWillAppear ensures that the view is updated if an entry is updated. :D
         if let entry = entry {
             configure(with: EntryViewModel(entry: entry))
-            dump(entry)
         }
     }
     
@@ -55,7 +55,6 @@ class EntryDetailController: UIViewController {
         
         // Mood Circle Setup
         moodCircle.moodLevel = viewModel.mood
-        print(viewModel.mood)
         moodCircleLabel.text = viewModel.moodString
     }
     
@@ -79,9 +78,19 @@ class EntryDetailController: UIViewController {
             navigationController?.popViewController(animated: true)
         } catch {
             // Prsesent an alert because something went wrong whilst try to delete this entry.
-            let alert = UIAlertController.alert(for: error)
-            present(alert, animated: true, completion: nil)
+            displayAlert(for: error)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // If we are going to the edit view controller, pass through the entry we are working with.
+        guard segue.identifier == "EditExistingEntry",
+            let navigationController = segue.destination as? UINavigationController,
+            let editEntyrViewController = navigationController.topViewController as? EditEntryController else { return }
+        
+        // Pass through the current entry and moc
+        editEntyrViewController.entry = entry
+        editEntyrViewController.managedObjectContext = managedObjectContext
     }
 }
 

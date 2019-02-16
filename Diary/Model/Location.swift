@@ -9,6 +9,7 @@
 
 import Foundation
 import CoreData
+import MapKit
 
 public class Location: NSManagedObject {
     
@@ -27,5 +28,12 @@ extension Location {
     @NSManaged public var name: String
     @NSManaged public var longitude: NSNumber
     @NSManaged public var latitude: NSNumber
-
+    
+    static func newLocation(withName name: String?, coordinate: CLLocationCoordinate2D, inContext context: NSManagedObjectContext) -> Location {
+        let location = Location(context: context)
+        location.name = name ?? "Unknown"
+        location.longitude = NSNumber(value: coordinate.longitude)
+        location.latitude = NSNumber(value: coordinate.latitude)
+        return location
+    }
 }

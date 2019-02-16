@@ -24,12 +24,7 @@ struct EntryViewModel {
     
     // Format the Entry creation date to display in long format.
     var creationDate: String {
-        
-        let dateFormatter = DateFormatter()
-        // eg. Friday 15 February
-        dateFormatter.dateFormat = "EEEE dd MMMM"
-        
-        return dateFormatter.string(for: entry.creationDate) ?? "Date Unknown"
+        return (entry.creationDate as Date).longStringRepresentation
     }
         
     // Creates a small image from the iamge data and returns a placeholder if one wasnt found.

@@ -40,9 +40,9 @@ extension Entry {
         }
     }
     
-    static func newEntry(withDescription description: String, mood: Int, image: UIImage?, mapItem: MKMapItem?, inContext context: NSManagedObjectContext) -> Entry? {
+    static func new(withDescription description: String, mood: Int, image: UIImage?, mapItem: MKMapItem?, inContext context: NSManagedObjectContext) {
         
-        guard let newEntry = NSEntityDescription.insertNewObject(forEntityName: "Entry", into: context) as? Entry else { return nil }
+        let newEntry = Entry(context: context)
         
         newEntry.entryDescription = description
         newEntry.mood = Int32(mood)
@@ -57,6 +57,7 @@ extension Entry {
         
         // Create a location object using the MapItem that the user selected earlier
         if let mapItem = mapItem, let locationName = mapItem.name {
+                    
             if let location = NSEntityDescription.insertNewObject(forEntityName: Location.entityName, into: context) as? Location {
                 location.name = locationName
                 location.longitude = mapItem.placemark.coordinate.longitude as NSNumber
@@ -65,7 +66,5 @@ extension Entry {
                 newEntry.location = location
             }
         }
-        
-        return newEntry
     }
 }

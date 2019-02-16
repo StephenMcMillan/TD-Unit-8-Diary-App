@@ -64,7 +64,7 @@ extension LocationSearchController: UISearchBarDelegate {
         
         let localSearch = MKLocalSearch(request: searchRequest)
         
-        localSearch.start { (response, error) in
+        localSearch.start { [unowned self] (response, error) in
             if let response = response {
                 self.locations = response.mapItems
             }

@@ -26,6 +26,7 @@
 		69F0BD58221701A000D76C97 /* EntryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BD57221701A000D76C97 /* EntryDetailController.swift */; };
 		69F0BD5A221706D100D76C97 /* MoodCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BD59221706D100D76C97 /* MoodCircleView.swift */; };
 		69F0BD5C221736AE00D76C97 /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BD5B221736AE00D76C97 /* LocationAnnotation.swift */; };
+		69F0BD5E22187B9700D76C97 /* PrettyDatesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BD5D22187B9700D76C97 /* PrettyDatesHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		69F0BD57221701A000D76C97 /* EntryDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailController.swift; sourceTree = "<group>"; };
 		69F0BD59221706D100D76C97 /* MoodCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodCircleView.swift; sourceTree = "<group>"; };
 		69F0BD5B221736AE00D76C97 /* LocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
+		69F0BD5D22187B9700D76C97 /* PrettyDatesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrettyDatesHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				699A126E2215FEB3007063AE /* DiaryCoreDataStack.swift */,
 				699A1274221628D7007063AE /* DiaryError.swift */,
 				69F0BD5B221736AE00D76C97 /* LocationAnnotation.swift */,
+				69F0BD5D22187B9700D76C97 /* PrettyDatesHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				699A127322162382007063AE /* EntryCell.swift in Sources */,
 				699A12602215C479007063AE /* LocationSearchController.swift in Sources */,
 				69F0BD5A221706D100D76C97 /* MoodCircleView.swift in Sources */,
+				69F0BD5E22187B9700D76C97 /* PrettyDatesHelper.swift in Sources */,
 				69F0BD562216E2E500D76C97 /* EntryViewModel.swift in Sources */,
 				699A125622159775007063AE /* Entry.swift in Sources */,
 			);

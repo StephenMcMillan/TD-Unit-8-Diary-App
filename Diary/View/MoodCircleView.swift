@@ -22,7 +22,7 @@ import UIKit
     }
     
     override func draw(_ rect: CGRect) {
-        
+                
         let centerPoint = CGPoint(x: bounds.width/2, y: bounds.height/2)
         
         let startAngle = (3 * Float.pi)/2// Radians (0deg)

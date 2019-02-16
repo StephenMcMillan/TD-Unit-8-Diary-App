@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class EntryListController: UITableViewController {
+class EntryListController: UITableViewController, ErrorAlertable {
     
     let coreDataStack: CoreDataStack = CoreDataStack()
     
@@ -30,9 +30,8 @@ class EntryListController: UITableViewController {
         // Try and fetch the data from the database...
         do {
             try fetchedResultsController.performFetch()
-            
         } catch {
-            print("Something went wrong when fetching the objets.")
+            displayAlert(for: error)
         }
     }
     
@@ -64,11 +63,26 @@ class EntryListController: UITableViewController {
         
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // Commit the deletion, because we only enable .delete there's no need to check what action is taken.
+        let objectToDelete = fetchedResultsController.object(at: indexPath)
+        coreDataStack.managedObjectContext.delete(objectToDelete)
+        
+        do {
+           try coreDataStack.managedObjectContext.save()
+        } catch {
+            displayAlert(for: error)
+        }
+    }
+    
+    // MARK: Table View Delegate method for deleting items
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        
-        
+
         switch segue.identifier {
         case "AddNewEntry":
             

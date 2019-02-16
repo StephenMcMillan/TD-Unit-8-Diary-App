@@ -38,6 +38,13 @@ extension UIAlertController {
     func addActions(_ actions: [UIAlertAction]) {
         actions.forEach { addAction($0) }
     }
-    
-    
+}
+
+protocol ErrorAlertable {}
+
+extension ErrorAlertable where Self: UIViewController {
+    func displayAlert(for error: Error) {
+        let alert = UIAlertController.alert(for: error)
+        present(alert, animated: true, completion: nil)
+    }
 }

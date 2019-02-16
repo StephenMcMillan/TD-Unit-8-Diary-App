@@ -13,7 +13,7 @@ import UIKit
 import CoreData
 import MapKit
 
-class EditEntryController: UITableViewController {
+class EditEntryController: UITableViewController, ErrorAlertable {
     
     // Interface Builder Outlets
     @IBOutlet weak var entryImageView: UIImageView!
@@ -53,13 +53,22 @@ class EditEntryController: UITableViewController {
         // Checks to see if an existing entry was set by another ViewController, if so setup with this entry.
         if let existingEntry = entry {
             setup(with: existingEntry)
+        } else {
+            title = Date().longStringRepresentation
         }
     }
     
+    // Set-up code if this view is given an existing entry.
     func setup(with entry: Entry) {
         // Use an existing entry to configure the view.
+        // Kind of short circuiting of the logic for new entries.
+        let entryViewModel = EntryViewModel(entry: entry)
+        title = entryViewModel.creationDate
+        entryImageView.image = entryViewModel.image
+        entryDescriptionTextView.text = entryViewModel.description
+        moodLevelSlider.value = Float(entryViewModel.mood)
+        locationButton.setTitle(entryViewModel.locationName, for: .normal)
     }
-
     
     // MARK: Image Selection/Updating
     @IBAction func entryImageViewTapped(_ sender: UITapGestureRecognizer) {
@@ -93,34 +102,58 @@ class EditEntryController: UITableViewController {
         do {
             try saveEntry()
         } catch {
-            print(error)
+            displayAlert(for: error)
         }
     }
     
     func saveEntry() throws {
         
-        guard let moc = managedObjectContext else { throw DiaryError.missingContextDuringSave }
+        // MOC Required to save.
+        guard let moc = managedObjectContext else {
+            throw DiaryError.missingContextDuringSave
+        }
         
-        // The only requirement to save an entry is to have a valid description. Everything else will have a default value or be nil.
+        // Must have populated description field.
         guard let entryDescription = entryDescriptionTextView.text, entryDescription.count > 0 else {
-            showAlert(for: .emptyDescription)
-            return
+            throw DiaryError.emptyDescription
         }
         
         let moodValue = Int(moodLevelSlider.value)
-        print(moodValue)
         
-        guard let newEntry = Entry.newEntry(withDescription: entryDescription, mood: moodValue , image: entryImage, mapItem: entryLocation, inContext: moc) else {
-            let alert = UIAlertController.alert(with: "Failed to create a new entry model.")
-            present(alert, animated: true, completion: nil) // FIXME: Add error and present using error type instead
-            return
+        // One of two things can now happen:
+        // ---------------------------------
+        // 1) an existing entry is present, in which case we are editing and need to update that entry.
+        // 2) no entry was present, in which case we are creating a new entry.
+
+        if let entry = entry {
+            
+            if let entryImage = entryImage, let imageData = entryImage.jpegData(compressionQuality: 0.5) {
+                // If there's a new entry image we need to convert and save it.
+                entry.image = imageData as NSData
+            }
+            
+            entry.entryDescription = entryDescription
+            entry.mood = Int32(moodValue)
+            
+            // entryLocation will be non-nill if the user selects a location from the location modal.
+            if let newEntryLocation = entryLocation {
+                // If the user selected a new locatiom, update the entry with this new location.
+                let newLocation = Location.newLocation(withName: newEntryLocation.name, coordinate: newEntryLocation.placemark.coordinate, inContext: moc)
+                entry.location = newLocation
+            }
+            
+            // Once we get here, any relevant sections should be up to date with the users choices.
+            // Continue saving and dismiss.
+            
+        } else {
+            // Create a new entry and add it to the managed object context
+            Entry.new(withDescription: entryDescription, mood: moodValue, image: entryImage, mapItem: entryLocation, inContext: moc)
         }
         
+        // Once there's either a new entry or an updated entry, save the changes and dismiss.
         try moc.save()
-        
-        dismiss()
+        dismiss() // The user will be returned to the detail view or the entry list depending on how they got here.
     }
-    
     
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -130,19 +163,13 @@ class EditEntryController: UITableViewController {
             locationSearchController.delegate = self
         }
     }
+    
     @IBAction func cancelEditTapped(_ sender: Any) {
         dismiss()
     }
     
-    // Dismisses the nav controller that presented this edit view.
     func dismiss() {
         navigationController?.dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: Error Alert
-    func showAlert(for error: DiaryError) {
-        let alert = UIAlertController.alert(for: error, action: nil)
-        present(alert, animated: true, completion: nil)
     }
 }
 

@@ -22,7 +22,7 @@ class ImagePickerManager: NSObject, UINavigationControllerDelegate {
     
     weak var delegate: ImagePickerManagerDelegate?
     
-    init?(presentingController: UIViewController){
+    init?(presentingController: UIViewController) {
         
         // If we can't access the photo library then there is no reason to create / present an image picker controller.
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
