@@ -98,8 +98,8 @@ class EntryDetailController: UIViewController, ErrorAlertable {
         editEntyrViewController.managedObjectContext = managedObjectContext
     }
     
-    deinit {
-        entryLocationMapView.removeAnnotations(entryLocationMapView.annotations)
-    }
+//    deinit {
+//        entryLocationMapView.removeAnnotations(entryLocationMapView.annotations)
+//    }
 }
 
