@@ -9,20 +9,15 @@
 import MapKit
 
 class LocationAnnotation: NSObject, MKAnnotation {
-    let location: Location
+    
+    var coordinate: CLLocationCoordinate2D
+    var title: String?
     
     init(location: Location) {
-        self.location = location
+        self.coordinate = CLLocationCoordinate2D(latitude: location.latitude.doubleValue, longitude: location.longitude.doubleValue)
+        self.title = location.name
         
         super.init()
-    }
-    
-    var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: location.latitude.doubleValue, longitude: location.longitude.doubleValue)
-    }
-    
-    var title: String? {
-        return location.name
     }
     
 }

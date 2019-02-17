@@ -50,6 +50,8 @@ class EditEntryController: UITableViewController, ErrorAlertable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureKeyboardToolbar()
+        
         // Checks to see if an existing entry was set by another ViewController, if so setup with this entry.
         if let existingEntry = entry {
             setup(with: existingEntry)
@@ -171,6 +173,23 @@ class EditEntryController: UITableViewController, ErrorAlertable {
     func dismiss() {
         navigationController?.dismiss(animated: true, completion: nil)
     }
+    
+    // Keyboard toolbar helper for dismissing the keyboard in the text view.
+    func configureKeyboardToolbar() {
+        let toolbar = UIToolbar(frame: CGRect(origin: .zero, size: CGSize(width: self.view.frame.width, height: 30.0)))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(EditEntryController.keyboardDoneButtonAction))
+        
+        // Creates a tool bar with flexible space on the left so the done button is positioned to the right-hand side.
+        toolbar.setItems([flexSpace, doneButton], animated: true)
+        toolbar.sizeToFit()
+        
+        self.entryDescriptionTextView.inputAccessoryView = toolbar
+    }
+    
+    @objc func keyboardDoneButtonAction() {
+        entryDescriptionTextView.resignFirstResponder()
+    }
 }
 
 // Allows the Edit Entry Controller to listen for a call from the Image Picker Manager
@@ -185,6 +204,4 @@ extension EditEntryController: LocationSearchControllerDelegate {
     func locationSearchController(_ controller: LocationSearchController, userSelectedMapItem mapItem: MKMapItem) {
         entryLocation = mapItem
     }
-    
 }
-

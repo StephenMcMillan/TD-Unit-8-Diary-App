@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.59" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.45"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EntryCell" rowHeight="150" id="5Ec-hZ-FRQ" customClass="EntryCell" customModule="Diary" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Ec-hZ-FRQ" id="iZi-DU-HQg">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dyL-Sy-Yf1">
+                        <rect key="frame" x="20" y="16" width="60" height="60"/>
+                        <color key="backgroundColor" red="0.1764705882" green="0.59607843140000005" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="2m1-cT-w4U"/>
+                            <constraint firstAttribute="width" constant="60" id="sSJ-4T-X7G"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuesday 12th February" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPU-4z-92X">
+                        <rect key="frame" x="100" y="16" width="204" height="24"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vU-a2-cS7">
+                        <rect key="frame" x="100" y="46" width="259" height="57.5"/>
+                        <string key="text">We took in the sights today whilst travelling on the railroad. The views were insane. I'm really excited to tackle the mountain tomorrow!</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vancouver, Canada" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zju-fE-7jK">
+                        <rect key="frame" x="132" y="113.5" width="140" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="L4I-5R-Akv">
+                        <rect key="frame" x="100" y="111.5" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="WlA-i0-uG0"/>
+                            <constraint firstAttribute="width" constant="24" id="zFy-tV-Al7"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="6vU-a2-cS7" firstAttribute="leading" secondItem="qPU-4z-92X" secondAttribute="leading" id="5fM-o0-Als"/>
+                    <constraint firstItem="L4I-5R-Akv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6vU-a2-cS7" secondAttribute="bottom" constant="8" id="6xj-D0-K0q"/>
+                    <constraint firstAttribute="trailing" secondItem="6vU-a2-cS7" secondAttribute="trailing" constant="16" id="9qa-YO-7za"/>
+                    <constraint firstItem="6vU-a2-cS7" firstAttribute="top" secondItem="qPU-4z-92X" secondAttribute="bottom" constant="6" id="BZi-qA-0GX"/>
+                    <constraint firstItem="dyL-Sy-Yf1" firstAttribute="top" secondItem="iZi-DU-HQg" secondAttribute="top" constant="16" id="DNv-nG-WCm"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Zju-fE-7jK" secondAttribute="trailing" constant="20" symbolic="YES" id="HnT-Bs-TmO"/>
+                    <constraint firstItem="dyL-Sy-Yf1" firstAttribute="leading" secondItem="iZi-DU-HQg" secondAttribute="leadingMargin" id="JtY-Xq-aor"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qPU-4z-92X" secondAttribute="trailing" constant="20" symbolic="YES" id="cwm-J6-8iW"/>
+                    <constraint firstAttribute="bottom" secondItem="Zju-fE-7jK" secondAttribute="bottom" constant="16" id="hif-4C-Y4M"/>
+                    <constraint firstItem="L4I-5R-Akv" firstAttribute="leading" secondItem="6vU-a2-cS7" secondAttribute="leading" id="l1C-bh-Q1p"/>
+                    <constraint firstItem="qPU-4z-92X" firstAttribute="top" secondItem="dyL-Sy-Yf1" secondAttribute="top" id="sSc-Sy-kLm"/>
+                    <constraint firstItem="Zju-fE-7jK" firstAttribute="leading" secondItem="L4I-5R-Akv" secondAttribute="trailing" constant="8" id="xci-Qd-Fzp"/>
+                    <constraint firstItem="Zju-fE-7jK" firstAttribute="centerY" secondItem="L4I-5R-Akv" secondAttribute="centerY" id="xkS-VZ-ZOz"/>
+                    <constraint firstItem="qPU-4z-92X" firstAttribute="leading" secondItem="dyL-Sy-Yf1" secondAttribute="trailing" constant="20" id="yxC-eS-Gzw"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dateLabel" destination="qPU-4z-92X" id="jpd-cF-Dw5"/>
+                <outlet property="descriptionLabel" destination="6vU-a2-cS7" id="8hl-WG-xOx"/>
+                <outlet property="locationLabel" destination="Zju-fE-7jK" id="uaS-pw-dqv"/>
+                <outlet property="thumbnailImageView" destination="dyL-Sy-Yf1" id="Puv-ID-ez0"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="location" width="96" height="96"/>
+    </resources>
+</document>

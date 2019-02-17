@@ -9,10 +9,12 @@
 import UIKit
 import CoreData
 
-class EntryListController: UITableViewController, ErrorAlertable {
+class EntryListController: BaseTableViewController, ErrorAlertable {
     
+    // Creates a new core data stack to work with throughout the application.
     let coreDataStack: CoreDataStack = CoreDataStack()
     
+    // Fetched results controller provides the entries for us to work with.
     lazy var fetchedResultsController: NSFetchedResultsController<Entry> = {
         let request: NSFetchRequest<Entry> = Entry.fetchRequest()
         let dateSort = NSSortDescriptor(key: "creationDate", ascending: false)
@@ -23,9 +25,34 @@ class EntryListController: UITableViewController, ErrorAlertable {
        return fetchedResultsController
     }()
     
+    // Table View that will display searched entries
+    private lazy var searchResultsController: SearchResultsController = {
+        let searchResultsController = SearchResultsController()
+        searchResultsController.tableView.delegate = self
+        return searchResultsController
+    }()
+    
+    // Search results controller that provides a search bar for searching entries
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: self.searchResultsController)
+        searchController.searchResultsUpdater = self // This view controller will be alerted when the search bar changes text etc.
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.searchBar.tintColor = .white
+        
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
+        
+        return searchController
+    }()
+    
     // MARK: View Setup
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set-up for search controller
+        navigationItem.searchController = self.searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
         
         // Try and fetch the data from the database...
         do {
@@ -55,12 +82,10 @@ class EntryListController: UITableViewController, ErrorAlertable {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: EntryCell.reuseIdentifier, for: indexPath) as! EntryCell
         
-        // Fetch entry from fetchedResultsController, create a view-model and use that view-model to configure the cell.
+        // Fetch entry from fetchedResultsController, set-up cell using parent method.
         let entry = fetchedResultsController.object(at: indexPath)
-        let viewModel = EntryViewModel(entry: entry)
-        cell.configure(with: viewModel)
+        configureCell(cell, forEntry: entry)
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -77,7 +102,34 @@ class EntryListController: UITableViewController, ErrorAlertable {
     
     // MARK: Table View Delegate method for deleting items
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        // TODO: This may need adjusting
         return .delete
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Since the delegate of the searchResultsController is set to self, entryListController manages both its own delegate calls and the searchResultsControllers delegate calls.
+        
+        let selectedEntry: Entry
+        
+        if tableView == self.tableView {
+            // The user tapped a regular entry in THIS view controller.
+            selectedEntry = fetchedResultsController.object(at: indexPath)
+        } else {
+            // The user tapped an entry from the search results controller
+            selectedEntry = searchResultsController.filteredEntries[indexPath.row]
+        }
+        
+        // Create a detail view controller and push it to the navigation stack.
+        guard let storyboard = storyboard, let detailViewController = storyboard.instantiateViewController(withIdentifier: EntryDetailController.storyboardIdentifier) as? EntryDetailController else {
+            return
+        }
+        
+        detailViewController.managedObjectContext = coreDataStack.managedObjectContext
+        detailViewController.entry = selectedEntry
+        
+        navigationController?.pushViewController(detailViewController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: false) // No need to animate as view will be off-screen.
     }
     
     // MARK: Navigation
@@ -93,18 +145,7 @@ class EntryListController: UITableViewController, ErrorAlertable {
             }
             
             addEntryView.managedObjectContext = coreDataStack.managedObjectContext
-            
-        case "ViewEntry":
-            
-            guard let entryDetailView = segue.destination as? EntryDetailController else {
-                return
-            }
-            
-            // Gets the entry from the fetched results controller for the index path that was tapped and passes it through to the detail view.
-            guard let selectedTableIndex = tableView.indexPathForSelectedRow else { return }
-            entryDetailView.managedObjectContext = coreDataStack.managedObjectContext
-            entryDetailView.entry = fetchedResultsController.object(at: selectedTableIndex)
-            
+
         default:
             break
         }

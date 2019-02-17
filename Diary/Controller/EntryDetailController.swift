@@ -13,8 +13,10 @@ import CoreData
 // Displays the details of a particular diary entry.
 class EntryDetailController: UIViewController, ErrorAlertable {
     
+    static let storyboardIdentifier: String = String(describing: EntryDetailController.self)
+    
     weak var entry: Entry?
-    var managedObjectContext: NSManagedObjectContext?
+    weak var managedObjectContext: NSManagedObjectContext?
     
     @IBOutlet weak var entryImageView: UIImageView!
     @IBOutlet weak var entryDescriptionLabel: UILabel!
@@ -45,17 +47,20 @@ class EntryDetailController: UIViewController, ErrorAlertable {
         if let location = entry?.location {
             let mapAnnotation = LocationAnnotation(location: location)
             entryLocationMapView.addAnnotation(mapAnnotation)
-            
+
             let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
             let region = MKCoordinateRegion(center: mapAnnotation.coordinate, span: span)
-            entryLocationMapView.setRegion(region, animated: true)
+            entryLocationMapView.setRegion(region, animated: false)
         } else {
             entryLocationMapView.isHidden = true
         }
         
-        // Mood Circle Setup
-        moodCircle.moodLevel = viewModel.mood
         moodCircleLabel.text = viewModel.moodString
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        moodCircle.moodLevel = Int(entry?.mood ?? 0)
     }
     
     @IBAction func deleteEntry(_ sender: Any) {
@@ -91,6 +96,10 @@ class EntryDetailController: UIViewController, ErrorAlertable {
         // Pass through the current entry and moc
         editEntyrViewController.entry = entry
         editEntyrViewController.managedObjectContext = managedObjectContext
+    }
+    
+    deinit {
+        entryLocationMapView.removeAnnotations(entryLocationMapView.annotations)
     }
 }
 

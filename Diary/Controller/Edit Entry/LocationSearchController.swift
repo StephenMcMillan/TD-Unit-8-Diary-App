@@ -58,7 +58,7 @@ class LocationSearchController: UITableViewController {
 extension LocationSearchController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = searchText
         
