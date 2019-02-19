@@ -18,6 +18,7 @@ class EntryDetailController: UIViewController, ErrorAlertable {
     weak var entry: Entry?
     weak var managedObjectContext: NSManagedObjectContext?
     
+    @IBOutlet weak var contentStackView: UIStackView!
     @IBOutlet weak var entryImageView: UIImageView!
     @IBOutlet weak var entryDescriptionLabel: UILabel!
     @IBOutlet weak var entryLocationLabel: UILabel!
@@ -31,6 +32,8 @@ class EntryDetailController: UIViewController, ErrorAlertable {
         if let entry = entry {
             configure(with: EntryViewModel(entry: entry))
         }
+        
+        updateDisplayMode()
     }
     
     func configure(with viewModel: EntryViewModel) {
@@ -45,6 +48,7 @@ class EntryDetailController: UIViewController, ErrorAlertable {
         
         // Map View setup
         if let location = entry?.location {
+            entryLocationMapView.isHidden = false
             let mapAnnotation = LocationAnnotation(location: location)
             entryLocationMapView.addAnnotation(mapAnnotation)
 
@@ -56,15 +60,22 @@ class EntryDetailController: UIViewController, ErrorAlertable {
         }
         
         moodCircleLabel.text = viewModel.moodString
+        
+        // This view is not drawn by the time this property is set, i think..
+        moodCircle.moodLevel = Int(entry?.mood ?? 0)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        moodCircle.moodLevel = Int(entry?.mood ?? 0)
-    }
-    
-    @IBAction func deleteEntry(_ sender: Any) {
         
+        if let moodValue = entry?.mood {
+            moodCircle.setMood(Int(moodValue))
+        }
+    }
+
+    @IBAction func deleteEntry(_ sender: Any) {
+                
         let deleteAlert = UIAlertController(title: "Delete Entry", message: "Are you sure you want to delete this diary entry. Once deleted, this entry can not be recovered.", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -76,11 +87,13 @@ class EntryDetailController: UIViewController, ErrorAlertable {
     
     func confirmDeleteEntry(_ alertAction: UIAlertAction) {
         managedObjectContext?.delete(entry!)
+        entry = nil
         
         do {
             try managedObjectContext?.save()
             
             navigationController?.popViewController(animated: true)
+            updateDisplayMode()
         } catch {
             // Prsesent an alert because something went wrong whilst try to delete this entry.
             displayAlert(for: error)
@@ -98,8 +111,18 @@ class EntryDetailController: UIViewController, ErrorAlertable {
         editEntyrViewController.managedObjectContext = managedObjectContext
     }
     
-//    deinit {
-//        entryLocationMapView.removeAnnotations(entryLocationMapView.annotations)
-//    }
+    func updateDisplayMode() {
+        // If the entry is nil, hide the content view.
+        if entry == nil {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            contentStackView.isHidden = true
+            title = "Select an Entry"
+        } else {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            contentStackView.isHidden = false
+        }
+    }
+    
+
 }
 

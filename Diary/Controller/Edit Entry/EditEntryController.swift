@@ -96,6 +96,12 @@ class EditEntryController: UITableViewController, ErrorAlertable {
 
         editImageActionSheet.addActions([removeAction, newImageAction])
         
+        // Special display case for iPads
+        if let popoverController = editImageActionSheet.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: entryImageView.frame.midX, y: entryImageView.frame.midY, width: 0, height: 0)
+        }
+        
         present(editImageActionSheet, animated: true, completion: nil)
     }
     

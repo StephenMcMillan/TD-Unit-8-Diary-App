@@ -98,6 +98,13 @@ class EntryListController: BaseTableViewController, ErrorAlertable {
         } catch {
             displayAlert(for: error)
         }
+            
+        if let splitVC = splitViewController, let detailNavController = splitVC.viewControllers.last as? UINavigationController, let detailViewController = detailNavController.topViewController as? EntryDetailController {
+            // This is going to nil out the entry since it's deleted and then hide the content since it's now invalid.
+
+            detailViewController.entry = nil
+            detailViewController.updateDisplayMode()
+        }
     }
     
     // MARK: Table View Delegate method for deleting items
@@ -121,14 +128,23 @@ class EntryListController: BaseTableViewController, ErrorAlertable {
         }
         
         // Create a detail view controller and push it to the navigation stack.
-        guard let storyboard = storyboard, let detailViewController = storyboard.instantiateViewController(withIdentifier: EntryDetailController.storyboardIdentifier) as? EntryDetailController else {
-            return
+//        guard let storyboard = storyboard, let detailViewController = storyboard.instantiateViewController(withIdentifier: EntryDetailController.storyboardIdentifier) as? EntryDetailController else {
+//            return
+//        }
+        
+        guard let storyboard = storyboard, let detailNavigationController = storyboard.instantiateViewController(withIdentifier: "EntryDetailNavigationController") as? UINavigationController else {
+             return
         }
+        
+        guard let detailViewController = detailNavigationController.topViewController as? EntryDetailController else { return }
+        
         
         detailViewController.managedObjectContext = coreDataStack.managedObjectContext
         detailViewController.entry = selectedEntry
         
-        navigationController?.pushViewController(detailViewController, animated: true)
+        showDetailViewController(detailNavigationController, sender: self)
+        
+        //navigationController?.pushViewController(detailViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: false) // No need to animate as view will be off-screen.
     }
     

@@ -10,19 +10,13 @@ import UIKit
 
 @IBDesignable class MoodCircleView: UIView {
     
-    var moodLevel: Int = 5 {
-        didSet {
-            // If the mood level is changed then update the moodView
-            // Only update the view if there's a valid mood level
-            setMood(CGFloat(self.moodLevel))
-        }
-    }
+    var moodLevel: Int = 5
     
     var arcShapeLayer = CAShapeLayer()
     
     override func draw(_ rect: CGRect) {
-                
-        let centerPoint = CGPoint(x: bounds.width/2, y: bounds.height/2)
+        
+        let centerPoint = CGPoint(x: rect.width/2, y: rect.height/2)
 
         let startAngle = (3 * Float.pi)/2// Radians (0deg)
         let endAngle = startAngle + (Float.pi * 2) // 360deg (full circle)
@@ -31,18 +25,20 @@ import UIKit
         arcShapeLayer = CAShapeLayer()
         arcShapeLayer.fillColor = UIColor.white.cgColor
 
-        arcShapeLayer.path = UIBezierPath(arcCenter: centerPoint, radius: bounds.width/2 - lineWidth/2, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: true).cgPath
+        arcShapeLayer.path = UIBezierPath(arcCenter: centerPoint, radius: rect.width/2 - lineWidth/2, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: true).cgPath
 
         arcShapeLayer.lineWidth = lineWidth
         arcShapeLayer.lineCap = .round
 
         arcShapeLayer.strokeColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        arcShapeLayer.strokeEnd = 0
+        arcShapeLayer.strokeEnd = 0.0
 
         layer.addSublayer(arcShapeLayer)
+        
+        setMood(moodLevel)
     }
 
-    private func setMood(_ value: CGFloat) {
+    func setMood(_ value: Int) {
         guard (0...10).contains(value) else { return }
 
         let mood = CGFloat(value) / 10.0

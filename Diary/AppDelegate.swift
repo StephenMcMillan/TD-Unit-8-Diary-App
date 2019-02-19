@@ -9,13 +9,18 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let splitViewController = window!.rootViewController as! UISplitViewController
+        splitViewController.delegate = self
+        splitViewController.preferredDisplayMode = .allVisible
+        
         return true
     }
 
@@ -40,7 +45,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        // Basically if there is no detail item selected then we don't show the detail view.        
+        guard let secondaryNavigationController = secondaryViewController as? UINavigationController, let detailViewController = secondaryNavigationController.topViewController as? EntryDetailController else { return false }
+        
+        guard detailViewController.entry != nil else {
+            return true
+        }
+        
+        return false
+        
+    }
 }
 
